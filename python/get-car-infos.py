@@ -12,16 +12,17 @@ if len(sys.argv) < 2:
 input_text = sys.argv[1]
 
 
-driver = webdriver.Chrome()  
+driver = webdriver.Chrome()
 
 try:
     # Accéder à la page cible
-    driver.get("https://www.oscaro.com/renault-scenic-iv-1-5-dci-110-cv-55861-0-t")  
+    driver.get("https://www.oscaro.com/renault-scenic-iv-1-5-dci-110-cv-55861-0-t")
 
     time.sleep(0.5)
-    
+
     cookies_button = driver.find_element(By.CLASS_NAME, "popin-close")
     cookies_button.click()
+
 
     time.sleep(0.5)
 
@@ -30,7 +31,7 @@ try:
 
     time.sleep(0.5)
 
-    input_field = driver.find_element(By.ID, "vehicle-input-plate")  
+    input_field = driver.find_element(By.ID, "vehicle-input-plate")
     input_field.send_keys(input_text)
 
     time.sleep(0.5)
@@ -39,18 +40,19 @@ try:
     ok_button.click()
 
     time.sleep(0.5)
-    
+
     cookies_button = driver.find_element(By.CLASS_NAME, "popin-close")
     cookies_button.click()
 
     time.sleep(0.5)
 
     label = driver.find_element(By.CLASS_NAME, "vehicle-label")
-    label_text = label.text  
+    label_text = label.text
     print("Marque et modèle :", label_text)
-   
+    print(label_text)
+
     time.sleep(1)
 
 finally:
-    
+
     driver.quit()
