@@ -37,6 +37,18 @@ export class UploadFormComponent {
     }
   }
 
+  onFileDrop(event: DragEvent): void {
+    event.preventDefault();
+    if (event.dataTransfer?.files.length) {
+      this.selectedFile = event.dataTransfer.files[0];
+      console.log("Dropped file:", this.selectedFile);
+    }
+  }
+
+  onDragOver(event: DragEvent): void {
+    event.preventDefault();
+  }
+
   onSubmit(): void {
     if (this.selectedFile) {
       this.simulateBackendProcess();

@@ -1,17 +1,25 @@
-<mat-card>
-    <mat-card-title>Upload Video for Processing</mat-card-title>
-    <mat-card-content>
-      <form (ngSubmit)="onSubmit()" [formGroup]="uploadForm">
-        <label for="fileInput">Choose a Video File</label>
-        <input id="fileInput" type="file" (change)="onFileSelect($event)" accept="video/*" />
-        <button mat-raised-button color="primary" type="submit" [disabled]="!selectedFile">Submit</button>
-      </form>
-    </mat-card-content>
-    <footer *ngIf="downloadUrl">
-      <p>Your Excel file is ready:</p>
-      <a [href]="downloadUrl" download="response.xlsx">Download Excel Report</a>
-    </footer>
-  </mat-card>
-  
+<div class="upload-container">
+    <mat-card class="upload-card">
+      <mat-card-title class="app-title">Echotech - AI-Powered Video Recognition Application</mat-card-title>
+      <p class="app-description">
+        To get started, upload your video file here for processing and recognition.
+      </p>
+      <mat-card-content>
+        <div class="drop-area" (click)="fileInput.click()" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)">
+          <input #fileInput id="fileInput" type="file" (change)="onFileSelect($event)" accept="video/*" hidden />
+          <div class="upload-icon">⬆️</div>
+          <p>Drag & drop any file here</p>
+          <p>or <span class="browse-link" (click)="fileInput.click()">browse file</span> from device</p>
+        </div>
+        <button mat-raised-button color="primary" class="upload-button" type="button" (click)="onSubmit()" [disabled]="!selectedFile">
+          Submit
+        </button>
+      </mat-card-content>
+      <mat-card-footer *ngIf="downloadUrl">
+        <p>Your Excel file is ready:</p>
+        <a [href]="downloadUrl" download="response.xlsx">Download Excel Report</a>
+      </mat-card-footer>
+    </mat-card>
+  </div>  
   
   
