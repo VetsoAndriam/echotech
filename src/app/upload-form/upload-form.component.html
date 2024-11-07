@@ -1,0 +1,17 @@
+<mat-card>
+    <mat-card-title>Upload Video for Processing</mat-card-title>
+    <mat-card-content>
+      <form (ngSubmit)="onSubmit()" [formGroup]="uploadForm">
+        <label for="fileInput">Choose a Video File</label>
+        <input id="fileInput" type="file" (change)="onFileSelect($event)" accept="video/*" />
+        <button mat-raised-button color="primary" type="submit" [disabled]="!selectedFile">Submit</button>
+      </form>
+    </mat-card-content>
+    <footer *ngIf="downloadUrl">
+      <p>Your Excel file is ready:</p>
+      <a [href]="downloadUrl" download="response.xlsx">Download Excel Report</a>
+    </footer>
+  </mat-card>
+  
+  
+  
