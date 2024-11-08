@@ -5,6 +5,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
+import { DataService } from '../data.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-upload-form',
@@ -15,7 +17,8 @@ import { CommonModule } from '@angular/common';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+  
   ],
   templateUrl: './upload-form.component.html',
   styleUrls: ['./upload-form.component.css']
@@ -24,8 +27,9 @@ export class UploadFormComponent {
   uploadForm: FormGroup;
   selectedFile: File | null = null;
   downloadUrl: string | null = null;
+  data: object[] = [];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private dataService: DataService) {
     this.uploadForm = this.fb.group({});
   }
 
@@ -34,6 +38,9 @@ export class UploadFormComponent {
     if (input.files?.length) {
       this.selectedFile = input.files[0];
       console.log("Selected video file:", this.selectedFile);
+      this.data = [
+        { name: 'Example', size: this.selectedFile.size, type: this.selectedFile.type }
+      ];
     }
   }
 
@@ -51,13 +58,22 @@ export class UploadFormComponent {
 
   onSubmit(): void {
     if (this.selectedFile) {
-      this.simulateBackendProcess();
+      this.uploadFile();
     }
   }
 
-  private simulateBackendProcess(): void {
-    setTimeout(() => {
-      this.downloadUrl = 'assets/3-Oxlsxccupation_rotation_J2_Vide.xlsx'; 
-    }, 2000);
+  async  uploadFile(): Promise<void> {
+    if (!this.selectedFile) {
+      console.error('Aucun fichier sélectionné.');
+      return;
+    }
+
+    try {
+      const csvBlob = await this.dataService.uploadVideo(this.selectedFile);
+      saveAs(csvBlob, 'output.csv'); 
+      console.log('CSV téléchargé avec succès.');
+    } catch (error) {
+      console.error('Erreur lors de l\'upload ou du téléchargement :', error);
+    }
   }
 }

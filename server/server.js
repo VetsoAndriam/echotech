@@ -4,9 +4,27 @@ const path = require('path');
 const fs = require('fs');
 const app = express();
 const PORT = 3000;
+const cors = require('cors');
+const multer = require('multer');
 
 // Middleware pour interpréter les données JSON dans le corps des requêtes
 app.use(express.json());
+
+ // Configuration de CORS
+// app.use(cors({
+//     origin: '*',//['http://localhost:4200', 'http://localhost:3000'],
+//     methods: ['GET', 'POST', 'DELETE', 'OPTIONS'], 
+//     allowedHeaders: ['Content-Type', 'Authorization'], 
+//   })); 
+//   app.options('*', cors());
+
+const corsOptions = {
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  };
+  app.use(cors(corsOptions));
 
 app.post('/generate-csv', (req, res) => {
     // Récupérer les données JSON envoyées dans le corps de la requête
@@ -69,6 +87,37 @@ app.delete('/delete-csv', (req, res) => {
             // Confirmation de la suppression
             res.send("Le fichier output.csv a été supprimé avec succès.");
         });
+    });
+});
+// recuprer le fichier
+app.get('/', (req, res) => {
+    res.send('Server is running. Use appropriate API routes.');
+  });
+  
+  const upload = multer({ dest: 'uploads/' });
+
+  app.post('/upload-video', upload.single('video'), (req, res) => {
+    const file = req.file;
+
+    if (!file) {
+        return res.status(400).send("Aucun fichier vidéo n'a été envoyé.");
+    }
+
+    console.log(`Fichier reçu : ${file.originalname}`);
+
+    // Simuler la génération d'un fichier CSV
+    const outputCsvPath = path.join(__dirname, 'output.csv');
+    fs.writeFileSync(outputCsvPath, 'id,name\n1,Test');
+
+    // Retournez le CSV généré au frontend
+    res.download(outputCsvPath, 'output.csv', (err) => {
+        if (err) {
+            console.error('Erreur lors de l\'envoi du fichier CSV:', err.message);
+            res.status(500).send("Erreur lors de l'envoi du fichier CSV.");
+        }
+
+        // Supprimez le fichier temporaire vidéo après traitement
+        fs.unlinkSync(file.path);
     });
 });
 
