@@ -2,6 +2,7 @@ import sys
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+import re
 import time
 
 if len(sys.argv) < 2:
@@ -47,7 +48,19 @@ try:
 
     label = driver.find_element(By.CLASS_NAME, "vehicle-label")
     label_text = label.text
-    print(label_text)
+
+    marque = re.search(r'\b[A-Z]+\b', label_text).group()
+    modelePattern = r'\b[A-Z][a-z]+\b'
+    modeles = re.findall(modelePattern, label_text)
+    modelStr = ""
+    for modele in modeles:
+      modelStr+= modele + " "
+
+    data = {
+      "marque" : marque,
+      "modele" : modelStr
+    }
+    print(data)
 finally:
 
     driver.quit()
