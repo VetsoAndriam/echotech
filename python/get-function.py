@@ -8,29 +8,35 @@ RANG_DEFAULT = 1
 MARQUE_DEFAULT = "Renault"
 MODELE_DEFAULT = "Scenic"
 COULEUR_DEFAULT = "rouge"
-PLAQUE_DEFAULT = "PH046EZ"
-HEURE_DEFAULT = "2024-11-07T15:23:40Z"
-Y_DEFAULT = 43.45774505
-X_DEFAULT = 6.48790391
+argumentPlaque = "PH046EZ"
+HEURE = "2024-11-07T15:23:40Z"
+Y = 22
+X = 10
 
-# Fichier get-horaire
+######### Fichier get-horaire
 get_horaires_path = 'get-horaires.py'
 files_get_horaires = subprocess.run(['python',get_horaires_path], capture_output=True, text=True)
-HEURE = files_get_horaires.stdout
+output = files_get_horaires.stdout
+allFiles = eval(output)
+HEURE = allFiles['heure']
+X = allFiles['X']
+Y = allFiles['Y']
 
-print(HEURE)
 
-# Fichier get-infos-path
 
-# get_cars_info_path = 'get-car-infos.py'
-#
-# argument = 'AL-126-PR'
-# commande = [get_cars_info_path,argument]
-# message = "python " + " ".join(commande)
-# print(message)
-# files_get_infos_car = subprocess.run(message, capture_output=True, text=True)
-# result_get_infos_car = files_get_infos_car.stdout
-# print('result_get_infos_car',result_get_infos_car)
+# HEURE_DEFAULT = allHoraires['heure']
+
+
+########## Fichier get-infos-car
+
+get_cars_info_path = 'get-car-infos.py'
+
+argumentPlaque = 'AL-126-PR'
+commande = [get_cars_info_path,argumentPlaque]
+message = "python " + " ".join(commande)
+files_get_infos_car = subprocess.run(message, capture_output=True, text=True)
+result_get_infos_car = files_get_infos_car.stdout
+print('result_get_infos_car',result_get_infos_car)
 
 
 
@@ -44,10 +50,10 @@ json = {
     "marque": MARQUE_DEFAULT,
     "modele": MODELE_DEFAULT,
     "couleur": COULEUR_DEFAULT,
-    "plaque": PLAQUE_DEFAULT,
-    "heure": HEURE_DEFAULT,
-    "y": Y_DEFAULT,
-    "x": X_DEFAULT
+    "plaque": argumentPlaque,
+    "heure": HEURE,
+    "y": Y,
+    "x": X
 }
 
 print('json',json)

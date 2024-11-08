@@ -38,8 +38,8 @@ def getResult(srcImage):
   coordonne = getCoordonne(text)
   data = {
     "heure": dateIso,
+    "X": coordonne['X'],
     "Y": coordonne['Y'],
-    "X": coordonne['X']
   }
   return data
 
@@ -47,9 +47,4 @@ def getResult(srcImage):
 srcImage = "data/data1.png"
 
 text = pytesseract.image_to_string(Image.open(srcImage))
-# print(text)
-# date = getDate(text)
-# heure = getHeure(text)
-# print(getCoordonne(text))
-# print(getIsoDate(date, heure))
 print(getResult(text))
