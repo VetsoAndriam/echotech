@@ -43,8 +43,8 @@ def getResult(srcImage):
   }
   return data
 
-################NgonIni
-srcImage = "data/data1.png"
+  ################NgonIni
+  srcImage = "data/data1.png"
 
-text = pytesseract.image_to_string(Image.open(srcImage))
-print(getResult(text))
+  text = pytesseract.image_to_string(Image.open(srcImage))
+  print(getResult(text))
