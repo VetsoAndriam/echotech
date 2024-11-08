@@ -3,6 +3,7 @@ import pytesseract
 import re
 import json
 
+
 def getDate(text):
   patternDate = r'\d{4}/\d{2}/\d{2}'
   return re.findall(patternDate, text)
@@ -23,17 +24,21 @@ def getCoordonne(text):
   }
   return coordonne
 
-def getHoraires(srcImage):
-  date = getDate(srcImage)
-  heure = getHeure(srcImage)
-  dateIso = getDateIso
 
-
-
-  date =
+  def getHoraires(srcImage):
+    text = pytesseract.image_to_string(Image.open(srcImage))
+    date = getDate(text)
+    heure = getHeure(text)
+    dateIso = getIsoDate(date[0], heure[0])
+    coordonne = getCoordonne(text)
+    data = {
+      "heure": dateIso,
+      "Y": coordonne['Y'],
+      "X": coordonne['X']
+    }
+    return data;
 
 srcImage = "data/data1.png"
 
 text = pytesseract.image_to_string(Image.open(srcImage))
-result = getHoraires(text)
 print(getHoraires(text))

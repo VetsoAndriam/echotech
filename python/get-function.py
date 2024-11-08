@@ -36,16 +36,19 @@ print(HEURE)
 
 # Preparation JSON
 json = {
-    "ID": "P5_1",
-    "nom": "P5",
-    "ill-licite": "licite",
-    "type": "gratuit",
-    "rang": 1,
-    "marque": "Renault",
-    "modele": "Scenic",
-    "couleur": "rouge",
-    "plaque": "PH046EZ",
-    "heure": "2024-11-07T15:23:40Z",
-    "y": 43.45774505,
-    "x": 6.48790391
+    "ID": ID_DEFAULT,
+    "nom": NOM_DEFAULT,
+    "ill-licite": ILL_LICITE_DEFAULT,
+    "type": TYPE_DEFAULT,
+    "rang": RANG_DEFAULT,
+    "marque": MARQUE_DEFAULT,
+    "modele": MODELE_DEFAULT,
+    "couleur": COULEUR_DEFAULT,
+    "plaque": PLAQUE_DEFAULT,
+    "heure": HEURE_DEFAULT,
+    "y": Y_DEFAULT,
+    "x": X_DEFAULT
 }
+
+print('json',json)
+
