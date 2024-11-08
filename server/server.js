@@ -14,16 +14,17 @@ app.use(express.json());
 // Route pour post la video
 app.post("/get-video", async (req, res) => {
   //Inserer le script qui permet de recupérer une vidéo en image
-await createFrame()
-    const allFiles = fs.readdirSync("frames");
-    const file = allFiles[1];
-    const fullPath = path.join("frames", file);
-    console.log("fullPath", fullPath);
+        // await createFrame()
+            const allFiles = fs.readdirSync("frames");
+            const file = allFiles[1];
+            const fullPath = path.join("frames", file);
+            console.log("fullPath", fullPath);
 
   //INSERER METHODE GET PLAQUE
   const getPlaque = "DA-861-LY";
   ///METHODE getFunction
   const json = await getFunction(fullPath,getPlaque)
+  console.log(json);
   return res.json({ ok: json });
 });
 
@@ -148,8 +149,10 @@ app.listen(PORT, () => {
 
 async function getFunction(fullPath, plaque) {
     return new Promise((resolve, reject) =>{
-        exec(`python getFunction.py "${fullPath}" "${plaque}"`, (stdout) => {
-          return stdout;
+        exec(`python getFunction.py "${fullPath}" "${plaque}"`, (stdout, stderr) => {
+          console.log(stdout);
+
+          // resolve(stdout);
     })
   });
 }

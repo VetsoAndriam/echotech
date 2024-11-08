@@ -1,6 +1,6 @@
 import subprocess
 import sys
-
+import json 
 ID_DEFAULT = "P5_1"
 NOM_DEFAULT = "P5"
 ILL_LICITE_DEFAULT = "licite"
@@ -40,9 +40,10 @@ def car_info(argument):
   allVoitures = eval(output)
   MARQUE = allVoitures['marque']
   MODELE = allVoitures['modele']
+  
 
   # Preparation JSON
-  json = {
+  data = {
     "ID": ID_DEFAULT,
     "nom": NOM_DEFAULT,
     "ill-licite": ILL_LICITE_DEFAULT,
@@ -56,12 +57,13 @@ def car_info(argument):
     "y": Y,
     "x": X
   }
-
-  print('json',json)
+  
+  with open("fichier.json", "w", encoding="utf-8") as fichier:
+    json.dump(data, fichier, ensure_ascii=False, indent=4)
 
 if __name__ == '__main__':
   if len(sys.argv) > 1:
     input_file = sys.argv[1]
     get_horaire(sys.argv[1])
-    car_info(sys.argv[2])
+    print(car_info(sys.argv[2]))
 
