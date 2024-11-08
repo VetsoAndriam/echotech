@@ -1,5 +1,6 @@
 import cv2
 import os
+import argparse
 
 def extract_frames(video_path, output_folder, frame_rate=1):
 
@@ -39,6 +40,13 @@ def extract_frames(video_path, output_folder, frame_rate=1):
     video.release()
     print(f"Extraction terminée ! {saved_frame_count} frames extraites dans '{output_folder}'.")
 
-video_path = 'data/videoTest.mp4'  #  chemin de ta vidéo
 output_folder = "./frames"  #  dossier de sortie souhaité
-extract_frames(video_path, output_folder, frame_rate=2)  # 1 = 1 image par sec ect..
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Extrait des frames d'une vidéo à un intervalle spécifié.")
+    parser.add_argument("video_path", type=str, help="Chemin de la vidéo à traiter")
+    
+
+    args = parser.parse_args()
+    
+    extract_frames(args.video_path, output_folder, frame_rate=2)
+
