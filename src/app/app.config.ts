@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,7 +20,8 @@ export const appConfig: ApplicationConfig = {
       MatFormFieldModule,
       MatInputModule,
       MatButtonModule,
-      ReactiveFormsModule 
-    )
+      ReactiveFormsModule,
+    ),
+    provideHttpClient(),
   ],
 };

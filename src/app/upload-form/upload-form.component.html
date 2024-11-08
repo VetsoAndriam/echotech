@@ -6,7 +6,7 @@
       </p>
       <mat-card-content>
         <div class="drop-area" (click)="fileInput.click()" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)">
-          <input #fileInput id="fileInput" type="file" (change)="onFileSelect($event)" accept="video/*" hidden />
+          <input #fileInput id="fileInput" type="file" (change)="onFileSelect($event)" accept="video/*,image/*" hidden />
           <div class="upload-icon">⬆️</div>
           <p>Drag & drop any file here</p>
           <p>or <span class="browse-link" (click)="fileInput.click()">browse file</span> from device</p>
