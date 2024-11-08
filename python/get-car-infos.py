@@ -23,7 +23,6 @@ try:
     cookies_button = driver.find_element(By.CLASS_NAME, "popin-close")
     cookies_button.click()
 
-
     time.sleep(0.5)
 
     modify_button = driver.find_element(By.CLASS_NAME, "btn-primary")
@@ -48,11 +47,7 @@ try:
 
     label = driver.find_element(By.CLASS_NAME, "vehicle-label")
     label_text = label.text
-    print("Marque et modèle :", label_text)
     print(label_text)
-
-    time.sleep(1)
-
 finally:
 
     driver.quit()
