@@ -22,10 +22,6 @@ X = allFiles['X']
 Y = allFiles['Y']
 
 
-
-# HEURE_DEFAULT = allHoraires['heure']
-
-
 ########## Fichier get-infos-car
 
 get_cars_info_path = 'get-car-infos.py'
